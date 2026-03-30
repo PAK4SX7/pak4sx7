@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Angie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c2c2c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Pantalla de carga */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2c2c2c;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fallFromSky 1s ease-out;
+        }
+
+        @keyframes fallFromSky {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+            60% {
+                transform: translateY(20px);
+                opacity: 1;
+            }
+            80% {
+                transform: translateY(-10px);            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* GIF con aura negro, gris y rojo oscuro */
+        .cat-gif {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(80, 80, 80, 0.6),
+                0 0 60px rgba(60, 20, 20, 0.5),
+                0 0 80px rgba(40, 10, 10, 0.4);
+            animation: bounce 0.5s ease-out 1s, floatCat 3s ease-in-out infinite, auraPulse 4s ease-in-out infinite;
+            border: 3px solid rgba(60, 20, 20, 0.8);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes floatCat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes auraPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 20px rgba(0, 0, 0, 0.8),
+                    0 0 40px rgba(80, 80, 80, 0.6),
+                    0 0 60px rgba(60, 20, 20, 0.5),
+                    0 0 80px rgba(40, 10, 10, 0.4);
+            }
+            50% {
+                box-shadow: 
+                    0 0 30px rgba(0, 0, 0, 1),
+                    0 0 50px rgba(100, 100, 100, 0.7),
+                    0 0 70px rgba(80, 20, 20, 0.6),
+                    0 0 90px rgba(60, 15, 15, 0.5);
+            }
+        }
+
+        /* Texto de carga con animación de movimiento */        .loading-text {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out 1.2s both, textFloat 3s ease-in-out infinite;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Spinner animado */
+        .spinner-container {
+            animation: fadeIn 0.5s ease-out 1.4s both, spinnerFloat 2s ease-in-out infinite;
+        }
+
+        .spinner {
+            width: 55px;
+            height: 55px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid #ff69b4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinnerFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Contenido principal */
+        #main-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            animation: fadeInMain 0.8s ease-out;
+        }
+
+        @keyframes fadeInMain {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Texto Pak4sx7 con estilo cool */
+        .pak4sx7-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #9932cc, #4169e1, #00bfff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 3s ease infinite, textGlow 2s ease-in-out infinite alternate, titleFloat 3s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            letter-spacing: 3px;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 20px rgba(255, 105, 180, 0.8),
+                             0 0 40px rgba(255, 20, 147, 0.6),
+                             0 0 60px rgba(147, 112, 219, 0.4);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255, 105, 180, 1),
+                             0 0 60px rgba(255, 20, 147, 0.8),
+                             0 0 90px rgba(147, 112, 219, 0.6);
+            }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); }
+        }
+        /* GIF principal con aura negro, gris y rojo oscuro */
+        .main-gif {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(80, 80, 80, 0.6),
+                0 0 60px rgba(60, 20, 20, 0.5),
+                0 0 80px rgba(40, 10, 10, 0.4);
+            animation: pulseGif 4s ease-in-out infinite, auraPulse 4s ease-in-out infinite;
+            border: 3px solid rgba(60, 20, 20, 0.8);
+        }
+
+        @keyframes pulseGif {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .social-text {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Texto "Sígueme en mis redes" con animación */
+        .social-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: textFloat 3s ease-in-out infinite;
+        }
+
+        /* Mensaje de amor con animación */
+        .love-message {
+            font-size: 1.1rem;
+            color: #ff69b4;
+            margin-top: 15px;
+            font-style: italic;
+            animation: pulse 2s infinite, textFloat 3s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        /* Botón Instagram con animación de movimiento */
+        .instagram-btn {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(220, 39, 67, 0.4);
+            transition: all 0.3s ease;
+            animation: slideUp 0.8s ease-out 0.3s both, buttonFloat 2.5s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instagram-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes buttonFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                box-shadow: 0 5px 20px rgba(220, 39, 67, 0.4);
+            }
+            25% { 
+                transform: translateY(-8px) rotate(-1deg);
+                box-shadow: 0 12px 30px rgba(220, 39, 67, 0.6);
+            }
+            50% { 
+                transform: translateY(0) rotate(0deg);
+                box-shadow: 0 5px 20px rgba(220, 39, 67, 0.4);
+            }
+            75% { 
+                transform: translateY(-8px) rotate(1deg);
+                box-shadow: 0 12px 30px rgba(220, 39, 67, 0.6);
+            }
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 35px rgba(220, 39, 67, 0.8);
+            animation: buttonFloat 0.3s ease-out;
+        }
+
+        .instagram-btn:active {
+            transform: translateY(-2px) !important;
+            transition: transform 0.1s ease;
+        }
+
+        .instagram-icon {
+            width: 28px;
+            height: 28px;
+            animation: iconBounce 2s infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-6px) rotate(-5deg); }
+            75% { transform: translateY(-6px) rotate(5deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .cat-gif {
+                width: 280px;
+                height: 280px;
+            }
+                        .loading-text {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            
+            .pak4sx7-title {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .main-gif {
+                max-width: 300px;
+            }
+            
+            .instagram-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de carga -->
+    <div id="loading-screen">
+        <img src="https://media.tenor.com/vBUddfNgFmcAAAAi/cat-happy.gif" alt="Gato feliz" class="cat-gif">
+        <p class="loading-text">Espera está cargando...</p>
+        <!-- Contenedor separado para evitar conflicto de animaciones -->
+        <div class="spinner-container">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main-content">
+        <!-- Texto Pak4sx7 con estilo cool -->
+        <h1 class="pak4sx7-title">Pak4sx7</h1>
+        
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycHBodXk0cTBnbGJ4Zmg4YzZzcXF5ajBwNjR3bmgycHYxaDhtNDhpbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1zZ9IIFeFEVLaeqzOq/giphy.gif" alt="Anuncio" class="main-gif">
+        
+        <div class="social-text">
+            <h2>Sígueme en mis redes</h2>
+            <a href="https://www.instagram.com/pak4sx7?igsh=bHZhZnR5cjVxd210" target="_blank" class="instagram-btn">
+                <svg class="instagram-icon" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                Instagram
+            </a>
+            <p class="love-message">Te amo mi amor de mi vida Angie 😍</p>
+        </div>    </div>
+
+    <script>
+        // Esperar 5 segundos y luego mostrar el contenido principal
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'flex';
+            }, 5000);
+        });
+    </script>
+
+</body>
+</html>
