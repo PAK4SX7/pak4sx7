@@ -9,6 +9,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Bloqueo de selección de texto y toque en todos los elementos */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
 
         body {
@@ -19,6 +25,8 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            /* Evitar comportamientos por defecto en móviles */
+            overscroll-behavior: none;
         }
 
         /* Pantalla de carga */
@@ -39,15 +47,15 @@
 
         @keyframes fallFromSky {
             0% {
-                transform: translateY(-100vh);
-                opacity: 0;
+                transform: translateY(-100vh);                opacity: 0;
             }
             60% {
                 transform: translateY(20px);
                 opacity: 1;
             }
             80% {
-                transform: translateY(-10px);            }
+                transform: translateY(-10px);
+            }
             100% {
                 transform: translateY(0);
             }
@@ -67,6 +75,9 @@
                 0 0 80px rgba(40, 10, 10, 0.4);
             animation: bounce 0.5s ease-out 1s, floatCat 3s ease-in-out infinite, auraPulse 4s ease-in-out infinite;
             border: 3px solid rgba(60, 20, 20, 0.8);
+            /* Protección de imagen */
+            pointer-events: none;
+            -webkit-user-drag: none;
         }
 
         @keyframes bounce {
@@ -85,8 +96,7 @@
                     0 0 20px rgba(0, 0, 0, 0.8),
                     0 0 40px rgba(80, 80, 80, 0.6),
                     0 0 60px rgba(60, 20, 20, 0.5),
-                    0 0 80px rgba(40, 10, 10, 0.4);
-            }
+                    0 0 80px rgba(40, 10, 10, 0.4);            }
             50% {
                 box-shadow: 
                     0 0 30px rgba(0, 0, 0, 1),
@@ -96,12 +106,13 @@
             }
         }
 
-        /* Texto de carga con animación de movimiento */        .loading-text {
+        /* Texto de carga con animación de movimiento más notable */
+        .loading-text {
             color: #fff;
             font-size: 1.3rem;
             margin-bottom: 25px;
             text-align: center;
-            animation: fadeIn 0.5s ease-out 1.2s both, textFloat 3s ease-in-out infinite;
+            animation: fadeIn 0.5s ease-out 1.2s both, textFloat 2.5s ease-in-out infinite;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
@@ -110,9 +121,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Movimiento más controlado pero visible (10px) */
         @keyframes textFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Spinner animado */
@@ -134,10 +146,9 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         @keyframes spinnerFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
+            50% { transform: translateY(-5px); }
         }
 
         /* Contenido principal */
@@ -145,7 +156,8 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;            padding: 20px;
+            justify-content: center;
+            padding: 20px;
             width: 100%;
             max-width: 500px;
             animation: fadeInMain 0.8s ease-out;
@@ -165,7 +177,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientFlow 3s ease infinite, textGlow 2s ease-in-out infinite alternate, titleFloat 3s ease-in-out infinite;
+            animation: gradientFlow 3s ease infinite, textGlow 2s ease-in-out infinite alternate, titleFloat 2.5s ease-in-out infinite;
             margin-bottom: 20px;
             text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
             letter-spacing: 3px;
@@ -182,8 +194,7 @@
             from {
                 text-shadow: 0 0 20px rgba(255, 105, 180, 0.8),
                              0 0 40px rgba(255, 20, 147, 0.6),
-                             0 0 60px rgba(147, 112, 219, 0.4);
-            }
+                             0 0 60px rgba(147, 112, 219, 0.4);            }
             to {
                 text-shadow: 0 0 30px rgba(255, 105, 180, 1),
                              0 0 60px rgba(255, 20, 147, 0.8),
@@ -191,10 +202,12 @@
             }
         }
 
+        /* Movimiento más notable para el título */
         @keyframes titleFloat {
             0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-5px) scale(1.02); }
+            50% { transform: translateY(-10px) scale(1.02); }
         }
+
         /* GIF principal con aura negro, gris y rojo oscuro */
         .main-gif {
             width: 100%;
@@ -209,6 +222,9 @@
                 0 0 80px rgba(40, 10, 10, 0.4);
             animation: pulseGif 4s ease-in-out infinite, auraPulse 4s ease-in-out infinite;
             border: 3px solid rgba(60, 20, 20, 0.8);
+            /* Protección de imagen */
+            pointer-events: none;
+            -webkit-user-drag: none;
         }
 
         @keyframes pulseGif {
@@ -222,21 +238,20 @@
             margin-bottom: 20px;
         }
 
-        /* Texto "Sígueme en mis redes" con animación */
+        /* Texto "Sígueme en mis redes" con animación más notable */
         .social-text h2 {
             font-size: 1.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: textFloat 3s ease-in-out infinite;
-        }
+            animation: textFloat 2.5s ease-in-out infinite;        }
 
-        /* Mensaje de amor con animación */
+        /* Mensaje de amor con animación más notable */
         .love-message {
             font-size: 1.1rem;
             color: #ff69b4;
             margin-top: 15px;
             font-style: italic;
-            animation: pulse 2s infinite, textFloat 3s ease-in-out infinite;
+            animation: pulse 2s infinite, textFloat 2.5s ease-in-out infinite;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
         }
 
@@ -244,6 +259,7 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
         }
+
         /* Botón Instagram con animación de movimiento */
         .instagram-btn {
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
@@ -263,6 +279,9 @@
             animation: slideUp 0.8s ease-out 0.3s both, buttonFloat 2.5s ease-in-out infinite;
             position: relative;
             overflow: hidden;
+            /* Permitir clicks solo en el botón */
+            pointer-events: auto;
+            z-index: 10;
         }
 
         .instagram-btn::before {
@@ -273,8 +292,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shine 3s infinite;
-        }
+            animation: shine 3s infinite;        }
 
         @keyframes shine {
             0% { left: -100%; }
@@ -292,6 +310,7 @@
                 transform: translateY(0);
             }
         }
+
         @keyframes buttonFloat {
             0%, 100% { 
                 transform: translateY(0) rotate(0deg);
@@ -322,8 +341,7 @@
             transition: transform 0.1s ease;
         }
 
-        .instagram-icon {
-            width: 28px;
+        .instagram-icon {            width: 28px;
             height: 28px;
             animation: iconBounce 2s infinite;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
@@ -341,7 +359,8 @@
                 width: 280px;
                 height: 280px;
             }
-                        .loading-text {
+            
+            .loading-text {
                 font-size: 1.1rem;
                 padding: 0 20px;
             }
@@ -366,20 +385,19 @@
 
     <!-- Pantalla de carga -->
     <div id="loading-screen">
-        <img src="https://media.tenor.com/vBUddfNgFmcAAAAi/cat-happy.gif" alt="Gato feliz" class="cat-gif">
+        <img src="https://media.tenor.com/vBUddfNgFmcAAAAi/cat-happy.gif" alt="Gato feliz" class="cat-gif" draggable="false">
         <p class="loading-text">Espera está cargando...</p>
         <!-- Contenedor separado para evitar conflicto de animaciones -->
         <div class="spinner-container">
             <div class="spinner"></div>
-        </div>
-    </div>
+        </div>    </div>
 
     <!-- Contenido principal -->
     <div id="main-content">
         <!-- Texto Pak4sx7 con estilo cool -->
         <h1 class="pak4sx7-title">Pak4sx7</h1>
         
-        <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycHBodXk0cTBnbGJ4Zmg4YzZzcXF5ajBwNjR3bmgycHYxaDhtNDhpbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1zZ9IIFeFEVLaeqzOq/giphy.gif" alt="Anuncio" class="main-gif">
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycHBodXk0cTBnbGJ4Zmg4YzZzcXF5ajBwNjR3bmgycHYxaDhtNDhpbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1zZ9IIFeFEVLaeqzOq/giphy.gif" alt="Anuncio" class="main-gif" draggable="false">
         
         <div class="social-text">
             <h2>Sígueme en mis redes</h2>
@@ -390,7 +408,8 @@
                 Instagram
             </a>
             <p class="love-message">Te amo mi amor de mi vida Angie 😍</p>
-        </div>    </div>
+        </div>
+    </div>
 
     <script>
         // Esperar 5 segundos y luego mostrar el contenido principal
@@ -400,6 +419,50 @@
                 document.getElementById('main-content').style.display = 'flex';
             }, 5000);
         });
+
+        // --- BLOQUEO DE SEGURIDAD ---
+
+        // 1. Deshabilitar clic derecho
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. Deshabilitar teclas de desarrollo (F12, Ctrl+Shift+I, Ctrl+U, etc.)
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { // F12
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { // Ctrl+S
+                return false;
+            }
+        }
+
+        // 3. Prevenir selección de texto al mantener presionado (mobile)
+        document.addEventListener('touchstart', function(event) {
+            // Si el toque NO es en el botón de Instagram, prevenir comportamiento default
+            if (!event.target.closest('.instagram-btn')) {
+                // Esto ayuda a evitar el menú contextual de "copiar" en móviles
+                // pero permite el scroll si fuera necesario (aunque tenemos overflow hidden)
+            }
+        }, { passive: false });
+
+        // 4. Prevenir arrastre de imágenes (ya cubierto por CSS pointer-events: none en imgs)
+        // Pero por seguridad extra en JS:
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+        });
+
     </script>
 
 </body>
